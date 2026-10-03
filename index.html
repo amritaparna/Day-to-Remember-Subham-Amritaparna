@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <!-- Fixed viewport forces desktop width rendering on mobile devices -->
+    <meta name="viewport" content="width=1024">
+    <!-- Prevents iOS Safari & mobile Chrome from altering dates, addresses, and text formatting -->
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+    <title>Day to Remember — Subham & Amritaparna</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Authentic Vintage Newspaper Typography Stack -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,300..800;1,6..72,300..800&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind Custom Theme Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        paper: '#F4EAD5',
+                        'paper-light': '#FAF5EA',
+                        'paper-dark': '#E2D3B7',
+                        ink: '#161412',
+                        'ink-light': '#2E2A25',
+                        accent: '#800000',
+                        gold: '#B8860B',
+                        sepia: '#6B4226'
+                    },
+                    fontFamily: {
+                        gothic: ['UnifrakturMaguntia', 'serif'],
+                        headline: ['"IM Fell English"', '"Playfair Display"', 'Georgia', 'serif'],
+                        body: ['Newsreader', '"Old Standard TT"', 'Georgia', 'serif'],
+                        subheadline: ['"Old Standard TT"', '"IM Fell English"', 'Georgia', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS Stylesheet -->
+    <style>
+        /* Base page styling and parchment noise background */
+        body {
+            min-width: 1024px;
+            background-color: #2A221B;
+            background-image: 
+                radial-gradient(circle at 50% 50%, rgba(42,34,27,0.6), rgba(12,14,11,0.95)),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+            color: #161412;
+            font-family: 'Newsreader', 'Old Standard TT', Georgia, serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Vintage aged newspaper texture effect */
+        .paper-texture {
+            background-color: #F3E9D2;
+            background-image: 
+                linear-gradient(to right, transparent 49.6%, rgba(70, 50, 20, 0.08) 50%, rgba(255, 255, 255, 0.12) 50.4%, transparent 50.8%),
+                url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)' opacity='0.08'/%3E%3C/svg%3E");
+            box-shadow: 
+                0 20px 45px rgba(0, 0, 0, 0.55), 
+                0 3px 10px rgba(0, 0, 0, 0.3),
+                inset 0 0 120px rgba(130, 95, 50, 0.22),
+                inset 0 0 30px rgba(90, 60, 25, 0.18);
+            position: relative;
+        }
+
+        /* Vintage photo filtering */
+        .vintage-photo {
+            filter: sepia(0.4) contrast(1.1) brightness(0.92) grayscale(0.15);
+            transition: filter 0.4s ease, transform 0.4s ease;
+        }
+        .vintage-photo:hover {
+            filter: sepia(0.1) contrast(1.02) brightness(0.98);
+        }
+        
+        /* Map container effects */
+        .map-sepia-container {
+            position: relative;
+        }
+        .map-sepia-container iframe {
+            filter: sepia(0.75) contrast(1.15) brightness(0.88) hue-rotate(-15deg);
+            transition: filter 0.5s ease;
+        }
+        .map-sepia-container:hover iframe {
+            filter: sepia(0.35) contrast(1.05) brightness(0.95);
+        }
+
+        /* Newspaper Dropcap styling */
+        .dropcap::first-letter {
+            font-family: 'IM Fell English', Georgia, serif;
+            font-weight: 700;
+            float: left;
+            font-size: 3.6rem;
+            line-height: 0.75;
+            padding-top: 4px;
+            padding-right: 8px;
+            padding-left: 2px;
+            color: #800000;
+        }
+
+        .coffee-stain {
+			position: absolute;
+			width: 200px;
+			height: 200px;
+			background: radial-gradient(circle, transparent 60%, rgba(90, 52, 28, 0.3) 65%, transparent 70%);
+			border-radius: 50%;
+			pointer-events: none;
+			z-index: 5;
+			transform: rotate(25deg);
+		}
+
+        .touch-target {
+            min-height: 44px;
+            min-width: 44px;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E0D2B8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #800000;
+            border-radius: 3px;
+        }
+
+        .gazette-section-card {
+            border: 2px solid #161412;
+            padding: 1.75rem;
+            background-color: rgba(226, 211, 183, 0.35);
+            border-radius: 0.125rem;
+            box-shadow: inset 0 0 15px rgba(112, 66, 20, 0.05);
+        }
+
+        .text-gazette-justify {
+            text-align: justify;
+            text-justify: inter-word;
+            -webkit-hyphens: none !important;
+            hyphens: none !important;
+            overflow-wrap: normal !important;
+            word-wrap: normal !important;
+            word-break: normal !important;
+            line-height: 1.5;
+            font-size: 0.935rem;
+        }
+
+        /* Crossword Puzzle Styles */
+        .grid-wrap {
+            overflow: auto;
+            flex-shrink: 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .cw-grid-matrix {
+            display: grid;
+            gap: 1px;
+            background: #161412;
+            border: 2px solid #161412;
+            width: max-content;
+        }
+        .cw-cell {
+            position: relative;
+            width: 25px;
+            height: 25px;
+            background: #FAF5EA;
+        }
+        .cw-cell.black { background: #161412; }
+        .cw-cell input {
+            width: 100%; height: 100%;
+            border: none;
+            background: transparent;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'IM Fell English', serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: #161412;
+            padding: 0;
+            outline: none;
+            caret-color: transparent;
+        }
+        .cw-cell input:disabled { visibility: hidden; }
+        .cw-cell .num {
+            position: absolute;
+            top: 0px; left: 1.5px;
+            font-size: 7px;
+            font-family: 'Old Standard TT', serif;
+            font-weight: 700;
+            color: #800000;
+            pointer-events: none;
+            line-height: 1;
+            z-index: 2;
+        }
+        .cw-cell.active input { background: #E2D3B7; }
+        .cw-cell.in-word input { background: rgba(184, 134, 11, 0.28); }
+        .cw-cell.correct input { color: #1e6322; font-weight: 900; }
+        .cw-cell.wrong input { color: #800000; background: rgba(128, 0, 0, 0.15); }
+
+        .clue-col h2 {
+            font-family: 'IM Fell English', serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 14px;
+            color: #800000;
+            border-bottom: 2px solid #161412;
+            padding-bottom: 2px;
+            margin: 0 0 6px;
+            letter-spacing: 0.05em;
+        }
+        .clue-list { list-style: none; margin: 0; padding: 0; }
+        .clue-list li {
+            font-size: 13px;
+            line-height: 1.4;
+            padding: 4px 4px;
+            border-bottom: 1px dashed rgba(22,20,18,0.2);
+            cursor: pointer;
+            transition: background .2s ease;
+            font-family: 'Newsreader', Georgia, serif;
+            text-align: justify;
+        }
+        .clue-list li:hover { background: rgba(184, 134, 11, 0.18); }
+        .clue-list li.selected { background: rgba(184, 134, 11, 0.35); font-weight: 700; }
+        .clue-list li .n { color: #800000; font-weight: 700; margin-right: 3px; font-family: 'Old Standard TT', serif; }
+        .clue-list li.done { opacity: .5; text-decoration: line-through; }
+
+        /* Cinematic Unfold Splash Screen Overlay Style with Reddish Tint */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            background-color: rgba(55, 15, 18, 0.97);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transition: opacity 0.8s ease, visibility 0.8s;
+        }
+        #splash-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        @keyframes gentleFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-14px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .heart-wrapper {
+            position: relative;
+            width: 760px;
+            height: 760px;
+            animation: gentleFloat 4.5s ease-in-out infinite;
+            transition: transform 0.9s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.8s ease;
+            transform-origin: center;
+        }
+        
+        .heart-wrapper.unfolding {
+            transform: scale(2.8) rotate(-3deg);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Heart clipping path for the splash screen card */
+        .heart-newspaper-card {
+            width: 100%;
+            height: 100%;
+            clip-path: path('M380,680 C380,680 710,450 710,250 C710,125 610,40 485,40 C415,40 380,90 380,90 C380,90 345,40 275,40 C150,40 50,125 50,250 C50,450 380,680 380,680 Z');
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 85px 120px;
+            border: none !important;
+            color: #1a1512;
+            position: relative;
+        }
+
+        /* Floating Hearts Background Animation - Highly Visible & Full Screen */
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0.7) rotate(0deg); opacity: 0; }
+            15% { opacity: 0.98; }
+            85% { opacity: 0.98; }
+            100% { transform: translateY(-10vh) scale(1.6) rotate(360deg); opacity: 0; }
+        }
+        
+        #floating-hearts-container {
+            position: fixed;
+            inset: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 9999;
+        }
+
+        .floating-heart {
+            position: absolute;
+            bottom: -50px;
+            color: rgba(220, 30, 30, 0.92);
+            pointer-events: none;
+            filter: drop-shadow(0 0 8px rgba(255, 105, 180, 0.85));
+        }
+    
+        /* =========================================================
+           MOBILE HEART BALLOON — DIRECT VISUAL SCALE
+           ========================================================= */
+        @media (max-width: 600px) {
+            #splash-screen {
+                overflow: hidden;
+            }
+
+            .heart-wrapper {
+                width: 760px !important;
+                height: 760px !important;
+                animation: mobileBalloonFloat 4.2s ease-in-out infinite;
+            }
+
+            .heart-wrapper > svg:first-of-type,
+            .heart-newspaper-card {
+                transform: scale(1.32);
+                transform-origin: center center;
+            }
+
+            .heart-wrapper > svg:nth-of-type(2) {
+                width: 11rem !important;
+                height: 40rem !important;
+                bottom: -33rem !important;
+                transform: translateX(-50%) scale(1.22);
+                transform-origin: top center;
+            }
+
+            @keyframes mobileBalloonFloat {
+                0%, 100% {
+                    transform: translate3d(0, 0, 0) rotate(-1.5deg);
+                }
+                25% {
+                    transform: translate3d(-16px, -28px, 0) rotate(-2.5deg);
+                }
+                50% {
+                    transform: translate3d(0, -52px, 0) rotate(0deg);
+                }
+                75% {
+                    transform: translate3d(16px, -28px, 0) rotate(2.5deg);
+                }
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .heart-wrapper {
+                animation: none !important;
+            }
+        }
+
+    </style>
+</head>
+
+<body class="py-8 px-6 min-h-screen relative">
+
+    <!-- FIXED BACKGROUND HEARTS CONTAINER (Persistent on Scroll & High Visibility) -->
+    <div id="floating-hearts-container"></div>
+
+    <!-- ==================== HEART-SHAPED SPLASH SCREEN ==================== -->
+    <div id="splash-screen" class="p-6">
+        <!-- Unified wrapper containing border, string, and card -->
+        <div class="heart-wrapper">
+            <!-- RED DOTTED BORDER -->
+            <svg class="absolute inset-0 w-full h-full pointer-events-none z-20 overflow-visible" viewBox="0 0 760 760">
+                <path d="M380,680 C380,680 710,450 710,250 C710,125 610,40 485,40 C415,40 380,90 380,90 C380,90 345,40 275,40 C150,40 50,125 50,250 C50,450 380,680 380,680 Z" 
+                  fill="none" stroke="#800000" stroke-width="8.5" stroke-dasharray="6, 6" />
+            </svg>
+
+            <!-- LONGER BALLOON STRING WITH HEART SHAPES -->
+            <svg class="absolute -bottom-44 left-1/2 -translate-x-1/2 w-32 h-64 pointer-events-none z-20 overflow-visible" viewBox="0 0 100 220">
+                <path d="M50,0 Q70,55 30,110 T50,220" fill="none" stroke="#800000" stroke-width="2.5" stroke-dasharray="4,4"/>
+                <path d="M50,40 C50,35 45,30 40,35 C35,30 30,35 30,40 C30,47 40,55 50,65 C60,55 70,47 70,40 C70,35 65,30 60,35 C55,30 50,35 50,40 Z" fill="#800000" transform="translate(0, 10) scale(0.65)" />
+                <path d="M50,40 C50,35 45,30 40,35 C35,30 30,35 30,40 C30,47 40,55 50,65 C60,55 70,47 70,40 C70,35 65,30 60,35 C55,30 50,35 50,40 Z" fill="#800000" transform="translate(-22, 90) scale(0.55)" />
+                <circle cx="50" cy="220" r="4.5" fill="#800000"/>
+            </svg>
+
+            <!-- Newspaper Heart Card -->
+            <div class="heart-newspaper-card paper-texture relative flex flex-col items-center justify-center text-center px-6 py-2">
+				<div class="coffee-stain top-2 right-1"></div>
+				<div class="coffee-stain bottom-14 left-24" style="transform: scale(1.2) rotate(-15deg);"></div>
+				<div class="flex flex-col items-center justify-center w-full max-w-[340px] space-y-3 -mt-24 transform scale-110 origin-center">
+                    <div class="bg-accent text-paper px-3.5 py-1 text-[10px] font-subheadline uppercase tracking-widest border border-amber-200/30 shadow-sm transform -rotate-1">
+                        &bull; Engagement Special Edition &bull;
+                    </div>
+                    
+                    <div class="text-gold">
+                        <svg class="w-14 h-14 overflow-visible" viewBox="0 0 24 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="currentColor" stroke="none" transform="translate(7.0, 3.0) scale(0.40)"/>
+                            <circle cx="9" cy="16" r="5" fill="none"/>
+                            <circle cx="15" cy="16" r="5" fill="none"/>
+                        </svg>
+                    </div>
+                    
+                    <span class="font-subheadline text-xs uppercase tracking-widest text-stone-700 font-semibold">An Invitation Carried With</span>
+                    
+                    <h1 class="font-gothic text-5xl text-ink leading-tight tracking-tight">Celebration & Love</h1>
+                    
+                    <div class="w-24 h-0.5 bg-accent/40"></div>
+                    
+                    <p class="font-headline italic text-stone-900 text-sm px-2 leading-relaxed">
+                        With heartful wishes and greetings, the Pal and Samanta family sends a warm invitation ... 
+                    </p>
+
+                    <!-- Button triggers audio and cinematic unfold -->
+                    <button onclick="flyAway()" class="touch-target cursor-pointer bg-accent text-white py-3 px-7 font-headline uppercase font-bold text-xs tracking-widest hover:bg-ink transition shadow-lg border border-ink flex items-center justify-center gap-2 mx-auto">
+                        <i class="fa-solid fa-newspaper text-sm"></i> Click to Unfold
+                    </button>
+					<div></div>
+					<div class="border-t border-b border-ink/40 py-2 px-5 font-subheadline text-xs font-semibold text-stone-900 bg-paper-dark/20 w-full">
+                        <p><i class="fa-regular fa-calendar-days text-accent mr-1.5"></i> Friday, Oct 23, 2026&ensp;
+                        <i class="fa-solid fa-location-dot text-accent mr-1.5"></i> Subhangan, Kolkata</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACKGROUND AUDIO CONTAINER (Main Screen Background Music) -->
+    <audio id="bg-audio" preload="auto" loop>
+        <source src="https://google.com" type="audio/mpeg">
+    </audio>
+
+    <!-- Floating Audio Control Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button id="audio-toggle-btn" onclick="toggleAudio()" title="Toggle Background Music" 
+                class="w-12 h-12 bg-paper text-ink border-2 border-ink rounded-full shadow-lg flex items-center justify-center hover:bg-accent hover:text-white transition duration-300">
+            <i id="audio-icon" class="fa-solid fa-volume-xmark text-sm"></i>
+        </button>
+    </div>
+
+    <!-- ==================== TOP NAVIGATION BAR ==================== -->
+    <nav class="fixed top-0 left-0 right-0 bg-ink text-paper z-40 shadow-lg border-b border-paper/20 py-2.5 px-6">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <a href="#" class="flex items-center space-x-2.5">
+                <span class="inline-block w-2.5 h-2.5 rounded-full bg-red-600 animate-pulse"></span>
+                <span class="font-gothic text-2xl text-amber-100 tracking-wide">Day to Remember</span>
+            </a>
+            <div class="flex items-center space-x-6 text-xs font-subheadline font-semibold uppercase tracking-widest">
+                <a href="#story" class="hover:text-amber-300 transition">Front Page</a>
+                <a href="#countdown" class="hover:text-amber-300 transition">Countdown</a>
+                <a href="#schedule" class="hover:text-amber-300 transition">Schedule</a>
+                <a href="#venue" class="hover:text-amber-300 transition">Venue</a>
+                <a href="#crossword" class="hover:text-amber-300 transition">Puzzle</a>
+                <a href="#rsvp" class="hover:text-amber-300 transition">RSVP</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== MAIN NEWSPAPER BROADSIDE ==================== -->
+    <main class="max-w-5xl mx-auto paper-texture p-10 mt-14 rounded-sm text-ink border-2 border-stone-800 relative overflow-hidden z-10">
+        
+        <div class="coffee-stain top-12 right-6"></div>
+        <div class="coffee-stain bottom-24 -left-10" style="transform: scale(1.2) rotate(-15deg);"></div>
+
+        <!-- Newspaper Header & Masthead -->
+        <header class="text-center border-b-4 border-ink pb-4 mb-6 pt-2">
+            <div class="flex flex-row justify-between items-center border-b border-ink pb-2 mb-3 text-xs font-subheadline tracking-widest uppercase gap-1.5">
+                <div class="font-semibold text-stone-800">
+                    <span>ENGAGEMENT SPECIAL EDITION</span>
+                </div>
+                <div class="font-bold tracking-widest text-accent text-center">
+                    "ALL THE LOVE THAT'S FIT TO PRINT"
+                </div>
+                <div class="font-semibold text-stone-800">
+                    <span>PRICE: FREE WITH LOVE & BLESSINGS</span>
+                </div>
+            </div>
+
+            <div class="py-1">
+                <h1 class="font-gothic text-8xl tracking-tight leading-none text-ink drop-shadow-sm select-none whitespace-nowrap">
+                    Day to Remember
+                </h1>
+            </div>
+
+            <div class="border-t-2 border-b-2 border-ink py-2 mt-3 grid grid-cols-3 gap-2 text-xs font-subheadline font-semibold tracking-wider uppercase text-center items-center">
+                <div class="text-left text-stone-900">
+                    <i class="fa-regular fa-calendar-days mr-1.5 text-accent"></i> Friday, October 23, 2026 
+                </div>
+                <div class="font-bold text-accent py-0">
+                    <i class="fa-solid fa-heart mr-1.5"></i>Kolkata Engagement Press <i class="fa-solid fa-heart mr-1.5"></i>
+                </div>
+                <div class="text-right text-stone-900">
+                    <i class="fa-solid fa-location-dot mr-1.5 text-accent"></i> Subhangan, Madhyamgram 
+                </div>
+            </div>
+        </header>
+
+        <!-- ==================== COUNTDOWN SECTION ==================== -->
+        <section id="countdown" class="scroll-mt-16 border-b-2 border-ink pb-10 mb-10">
+            <div class="gazette-section-card text-center">
+                <span class="font-subheadline text-xs font-bold uppercase tracking-widest text-accent block mb-1">Countdown</span>
+                <h3 class="font-headline font-black text-2xl uppercase mb-1 text-ink">To the Engagement </h3>
+                <p class="font-body italic text-stone-800 text-sm mb-4 text-center">
+                    Counting down every hour and second until the celebration begins 
+                </p>
+                
+                <div class="grid grid-cols-4 gap-4 max-w-lg mx-auto font-subheadline">
+                    <div class="bg-ink text-paper p-3 rounded-sm border border-stone-700 shadow">
+                        <span id="days" class="block font-bold text-4xl text-amber-300 font-headline">00</span>
+                        <span class="text-xs uppercase tracking-wider text-stone-300">Days</span>
+                    </div>
+                    <div class="bg-ink text-paper p-3 rounded-sm border border-stone-700 shadow">
+                        <span id="hours" class="block font-bold text-4xl text-amber-300 font-headline">00</span>
+                        <span class="text-xs uppercase tracking-wider text-stone-300">Hours</span>
+                    </div>
+                    <div class="bg-ink text-paper p-3 rounded-sm border border-stone-700 shadow">
+                        <span id="minutes" class="block font-bold text-4xl text-amber-300 font-headline">00</span>
+                        <span class="text-xs uppercase tracking-wider text-stone-300">Mins</span>
+                    </div>
+                    <div class="bg-ink text-paper p-3 rounded-sm border border-stone-700 shadow">
+                        <span id="seconds" class="block font-bold text-4xl text-amber-300 font-headline">00</span>
+                        <span class="text-xs uppercase tracking-wider text-stone-300">Secs</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FRONT STORY SECTION ==================== -->
+        <section id="story" class="scroll-mt-16 grid grid-cols-12 gap-8 border-b-2 border-ink pb-10 mb-10">
+            <article class="col-span-8 flex flex-col justify-between">
+                <div>
+                    <span class="font-subheadline text-xs font-bold tracking-widest uppercase text-accent block mb-1">Attention</span>
+                    <h2 class="font-headline font-black text-3xl leading-tight uppercase mb-3 tracking-tight text-ink">
+                        Amritaparna & Subham To Exchange Engagement Rings 
+                    </h2>
+                    
+                    <h3 class="font-headline italic text-sm text-stone-800 mb-5 font-semibold leading-relaxed text-gazette-justify">
+                        After 3 Years 11 Months & 11 Days of shared laughter, cherished memories, and boundless companionship, a formal invitation is extended to all loved ones.
+                    </h3>
+
+                    <figure class="mb-6 p-3 bg-paper-dark/60 border border-stone-600 shadow-inner">
+                        <div class="relative overflow-hidden border border-stone-800">
+                            <img src="DSC09147.jpg" 
+                                 alt="Amritaparna Pal and Subham Samanta" 
+                                 class="w-full h-80 object-cover vintage-photo"
+                                 onerror="this.src='https://placehold.co/800x500/F4EAD5/1A1A1A?text=Amritaparna+%26+Subham'">
+                            
+                        </div>
+                        <figcaption class="font-body text-xs text-stone-800 italic mt-2 text-center border-t border-stone-400 pt-1.5">
+                            Amritaparna & Subham prepare to exchange rings on Friday, October 23, 2026 in Kolkata.
+                        </figcaption>
+                    </figure>
+
+                    <div class="font-body text-sm leading-relaxed text-stone-900 text-gazette-justify columns-2 gap-5 space-y-0">
+                        <p class="dropcap">
+							A long-awaited milestone approaches for the Pal and Samanta households as the families prepare to host the official engagement ceremony of Amritaparna Pal and Subham Samanta. Scheduled for Friday, October 23, 2026, the grand celebration will take place at Subhangan Marriage Hall in Madhyamgram, Kolkata.
+						</p>
+						<p>
+							The upcoming union marks the next chapter in a romance that blossomed nearly four years ago. Over the past three years and eleven months, Amritaparna and Subham have cultivated a relationship built on a foundation of shared dreams, mutual respect, and deep understanding—a bond continuously supported by the warmth and blessings of their loved ones.
+						</p>
+						<p>
+							"We are thrilled to embark on this lifelong commitment," the couple shared ahead of the festivities. "Having our cherished family, mentors, and friends by our side as we mark this milestone makes the day truly complete."
+						</p>
+						<p>
+							Organizers promise an enchanting evening filled with rich traditional ceremonies, heartwarming toasts, an ambient musical atmosphere, and a lavish celebratory feast designed to honor the couple's journey as esteemed guests gather to witness their formal engagement.
+						</p>
+                    </div>
+                </div>
+
+                <blockquote class="my-6 p-4 border-y-2 border-ink text-center font-headline italic text-xl text-accent bg-paper-dark/30">
+                    "Your presence, love, and warm blessings are the greatest gifts as we step into this new chapter together."
+                </blockquote>
+            </article>
+
+            <!-- Sidebar -->
+            <aside class="col-span-4 border-l-2 border-ink pl-8 flex flex-col space-y-6">
+                <div class="border-b border-ink pb-4">
+                    <span class="font-subheadline text-xs font-bold uppercase text-accent tracking-widest block mb-1">Host Message</span>
+                    <h4 class="font-headline font-bold text-lg uppercase mb-2">A Message From The Families</h4>
+                    <p class="font-body text-xs leading-relaxed mb-3 text-stone-800 text-gazette-justify">
+                        We cordially invite you to join us in gracing this joyous occasion. Your blessings and presence will add immeasurable delight to the engagement of Amritaparna & Subham.
+                    </p>
+                    <div class="font-subheadline text-xs text-right pr-2 text-stone-900 font-semibold">
+                        — House of Pal & Samanta
+                    </div>
+                </div>
+                
+                <div>
+                    <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Engagement+Ceremony:+Amritaparna+%26+Subham&dates=20261023T123000Z/20261023T163000Z&details=Join+us+in+celebrating+the+Engagement+Ceremony+of+Amritaparna+Pal+%26+Subham+Samanta.&location=Subhangan+Marriage+Hall,+2no+Sreenagar,+Madhyamgram,+Kolkata,+West+Bengal+700129" 
+                       target="_blank" rel="noopener noreferrer" 
+                       class="touch-target inline-flex items-center justify-center w-full bg-accent text-white px-4 py-3 font-headline text-sm font-bold border border-ink shadow hover:bg-ink transition gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-calendar-plus text-sm"></i> Add to Google Calendar
+                    </a>
+                </div>
+
+                <div class="border-b border-ink pb-4">
+                    <div class="gazette-section-card">
+                        <h4 class="font-headline text-base font-bold border-b border-ink pb-1.5 mb-3 text-center text-accent whitespace-nowrap">
+                            Invitation Particulars
+                        </h4>
+                        <dl class="space-y-2 text-xs font-body">
+                            <div class="flex justify-between border-b border-stone-400 pb-1">
+                                <dt class="font-bold">Bride-to-be:</dt>
+                                <dd class="text-right">Amritaparna Pal</dd>
+                            </div>
+                            <div class="flex justify-between border-b border-stone-400 pb-1">
+                                <dt class="font-bold">Groom-to-be:</dt>
+                                <dd class="text-right">Subham Samanta</dd>
+                            </div>
+                            <div class="flex justify-between border-b border-stone-400 pb-1">
+                                <dt class="font-bold">Occasion:</dt>
+                                <dd class="text-right">Engagement</dd>
+                            </div>
+                            <div class="flex justify-between border-b border-stone-400 pb-1">
+                                <dt class="font-bold">Date:</dt>
+                                <dd class="text-right">October 23, 2026</dd>
+                            </div>
+                            <div class="flex justify-between border-b border-stone-400 pb-1">
+                                <dt class="font-bold">Time:</dt>
+                                <dd class="text-right">6:00 PM Onwards</dd>
+                            </div>
+                            <div class="flex justify-between">
+                                <dt class="font-bold">City:</dt>
+                                <dd class="text-right">Kolkata, WB</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+
+                <div class="p-2 border border-ink bg-white/40 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" 
+                         alt="Ring Ceremony Ambience" 
+                         class="w-full h-36 object-cover vintage-photo"
+                         onerror="this.src='https://placehold.co/400x300/F4EAD5/1A1A1A?text=Festive+Engagement'">
+                    <p class="font-body text-xs italic text-center mt-2 text-stone-800">
+                        "Two rings, two hearts, one unforgettable evening."
+                    </p>
+                </div>
+				<div class="p-2 border border-ink bg-white/40 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80" 
+                         alt="Ring Ceremony Ambience" 
+                         class="w-full h-36 object-cover vintage-photo"
+                         onerror="this.src='https://placehold.co/400x300/F4EAD5/1A1A1A?text=Festive+Engagement'">
+                    <p class="font-body text-xs italic text-center mt-2 text-stone-800">
+                        "Two rings, two hearts, one unforgettable evening."
+                    </p>
+                </div>
+            </aside>
+        </section>
+
+        <!-- ==================== SCHEDULE SECTION ==================== -->
+        <section id="schedule" class="scroll-mt-16 border-b-2 border-ink pb-10 mb-10">
+            <div class="gazette-section-card">
+                <div class="text-center mb-6">
+                    <span class="font-subheadline text-xs font-bold tracking-widest uppercase text-accent block mb-1">Official Itinerary</span>
+                    <h2 class="font-headline font-black text-3xl uppercase tracking-tight text-ink">
+                        Program & Ceremony Schedule
+                    </h2>
+                    <p class="font-body italic text-stone-800 text-sm mt-1 text-center">
+                        Honored guests are requested to refer to the order of events for Friday evening, October 23, 2026.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="border-2 border-ink p-4 bg-paper-light flex flex-col justify-between rounded-sm">
+                        <div>
+                            <div class="flex justify-between items-center border-b border-ink pb-2 mb-2">
+                                <span class="font-subheadline font-bold text-accent text-base">6:00 PM</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-base uppercase mb-1">Guest Reception</h3>
+                            <p class="font-body text-xs text-stone-800 leading-relaxed text-gazette-justify">
+                                Arrival of guests at Subhangan Marriage Hall. Traditional welcome with refreshing mocktails, appetizers, and ambient music.
+                            </p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-stone-400 text-[11px] italic text-stone-700">
+                            <i class="fa-solid fa-mug-hot mr-1"></i> Refreshments Served
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-ink p-4 bg-paper-light flex flex-col justify-between rounded-sm">
+                        <div>
+                            <div class="flex justify-between items-center border-b border-ink pb-2 mb-2">
+                                <span class="font-subheadline font-bold text-accent text-base">7:00 PM</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-base uppercase mb-1">Registration Ceremony</h3>
+                            <p class="font-body text-xs text-stone-800 leading-relaxed text-gazette-justify">
+                                Official registration and signing ceremony between Amritaparna and Subham in the presence of family witnesses and guests.
+                            </p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-stone-400 text-[11px] italic text-accent font-bold">
+                            <i class="fa-solid fa-file-pen mr-1"></i> Legal Registration
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-ink p-4 bg-paper-light flex flex-col justify-between rounded-sm">
+                        <div>
+                            <div class="flex justify-between items-center border-b border-ink pb-2 mb-2">
+                                <span class="font-subheadline font-bold text-accent text-base">8:00 PM</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-base uppercase mb-1">Ring Exchange</h3>
+                            <p class="font-body text-xs text-stone-800 leading-relaxed text-gazette-justify">
+                                Formal exchange of rings between Amritaparna and Subham amidst family blessings, followed by stage photos.
+                            </p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-stone-400 text-[11px] italic text-accent font-bold">
+                            <i class="fa-solid fa-gem mr-1"></i> Joyous Celebration
+                        </div>
+                    </div>
+
+                    <div class="border-2 border-ink p-4 bg-paper-light flex flex-col justify-between rounded-sm">
+                        <div>
+                            <div class="flex justify-between items-center border-b border-ink pb-2 mb-2">
+                                <span class="font-subheadline font-bold text-accent text-base">8:30 PM+</span>
+                            </div>
+                            <h3 class="font-headline font-bold text-base uppercase mb-1">Engagement Feast</h3>
+                            <p class="font-body text-xs text-stone-800 leading-relaxed text-gazette-justify">
+                                A grand banquet consisting of signature delicacies, traditional recipes, and decadent desserts served with warm hospitality.
+                            </p>
+                        </div>
+                        <div class="mt-3 pt-2 border-t border-stone-400 text-[11px] italic text-stone-700">
+                            <i class="fa-solid fa-utensils mr-1"></i> Royal Banquet
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== VENUE SECTION ==================== -->
+        <section id="venue" class="scroll-mt-16 border-b-2 border-ink pb-10 mb-10">
+            <div class="gazette-section-card">
+                <div class="grid grid-cols-12 gap-6 items-center">
+                    <div class="col-span-7 space-y-3">
+                        <span class="font-subheadline text-xs font-bold uppercase text-accent tracking-widest block">Venue & Location</span>
+                        <h3 class="font-headline font-bold text-3xl uppercase text-ink">
+                            Subhangan Marriage Hall
+                        </h3>
+                        <p class="font-body text-xs text-stone-900 leading-relaxed font-bold">
+                            Address: 2no Sreenagar, Madhyamgram, Kolkata, West Bengal - 700129
+                        </p>
+                        <p class="font-body text-xs text-stone-800 leading-relaxed text-gazette-justify">
+                            Conveniently located at Madhyamgram near 2 No Sreenagar, with easy connectivity from Kolkata city center, Netaji Subhash Chandra Bose International Airport (CCU), Madhyamgram Railway Station and Madhyamgram Choumatha.
+                        </p>
+                        <div class="grid grid-cols-2 gap-3 pt-2 font-body text-xs">
+                            <div class="p-2.5 border border-ink bg-white/70">
+                                <p class="font-bold font-subheadline uppercase mb-0.5 text-accent"><i class="fa-solid fa-train mr-1"></i> By Train</p>
+                                <p class="text-gazette">5-10 mins auto-rickshaw drive from Madhyamgram Railway Station.</p>
+                            </div>
+                            <div class="p-2.5 border border-ink bg-white/70">
+                                <p class="font-bold font-subheadline uppercase mb-0.5 text-accent"><i class="fa-solid fa-car mr-1"></i> By Road</p>
+                                <p class="text-gazette">Accessible via Jessore Road / BT Road directly from Madhyamgram Choumatha.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Sepia-Toned Map Container -->
+                    <div class="col-span-5">
+                        <div class="p-2 border-2 border-ink bg-white rounded-sm shadow">
+                            <div class="map-sepia-container relative overflow-hidden h-64 border border-stone-800 bg-amber-90/10 rounded-sm">
+                                <iframe 
+                                    title="Subhangan Marriage Hall Venue Map"
+                                    src="https://maps.google.com/maps?q=Subhangan+Marriage+Hall,+2no+Sreenagar,+Madhyamgram,+Kolkata,+West+Bengal+700129&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                                    class="w-full h-full border-0" 
+                                    loading="lazy" 
+                                    allowfullscreen>
+                                </iframe>
+                                <div class="absolute inset-0 bg-amber-90/10 pointer-events-none mix-blend-color"></div>
+                                <div class="absolute top-2 left-2 flex justify-end pointer-events-auto">
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=Subhangan+Marriage+Hall,+2no+Sreenagar,+Madhyamgram,+Kolkata,+West+Bengal+700129" 
+                                       target="_blank" rel="noopener noreferrer" 
+                                       class="px-3.5 py-2 bg-accent text-white text-[11px] font-subheadline uppercase font-bold tracking-wider hover:bg-ink transition shadow border border-ink flex items-center gap-1.5">
+                                        <i class="fa-solid fa-diamond-turn-right text-xs"></i> Launch Directions
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== CROSSWORD PUZZLE SECTION ==================== -->
+        <section id="crossword" class="scroll-mt-16 border-b-2 border-ink pb-10 mb-10">
+            <div class="gazette-section-card">
+                <div class="text-center mb-4 border-b-2 border-ink pb-3">
+                    <span class="font-subheadline text-xs font-bold text-accent tracking-widest uppercase block mb-1">✦ Special Feature ✦</span>
+                    <h2 class="font-headline font-black text-3xl uppercase tracking-tight text-ink">
+                        The Engagement Crossword
+                    </h2>
+                    <p class="font-body text-xs text-stone-800 italic">
+                        Special Puzzle — Friday, 23rd October 2026
+                    </p>
+                </div>
+
+                <div class="flex flex-row gap-6 items-stretch justify-center max-w-4xl mx-auto">
+                    <!-- Left: Compact Matrix Grid -->
+                    <div class="flex flex-col items-center justify-center shrink-0">
+                        <div class="grid-wrap flex justify-center py-1">
+                            <div class="cw-grid-matrix" id="grid"></div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Clues / Hints Panel -->
+                    <div class="flex-1 w-full flex flex-col justify-between">
+                        <div class="grid grid-cols-2 gap-4 h-[350px] overflow-y-auto pr-1 border-l border-ink/30 pl-6 text-xs">
+                            <div class="clue-col">
+                                <h2>Across Clues</h2>
+                                <ul class="clue-list" id="acrossList"></ul>
+                            </div>
+                            <div class="clue-col">
+                                <h2>Down Clues</h2>
+                                <ul class="clue-list" id="downList"></ul>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 pt-3 border-t-2 border-ink flex flex-row items-center justify-between gap-3 bg-paper-light/60 p-3 border border-stone-400 rounded-sm">
+                            <div class="text-[11px] font-subheadline uppercase text-accent font-bold whitespace-nowrap">
+                                <i class="fa-solid fa-lightbulb mr-1"></i> Hints & Actions
+                            </div>
+                            <div class="controls flex flex-nowrap gap-1.5 justify-end items-center">
+                                <button class="btn font-subheadline text-[11px] px-2.5 py-1.5 bg-ink text-paper font-bold uppercase tracking-wider border border-ink hover:bg-accent hover:text-white transition shadow whitespace-nowrap" id="checkBtn">
+                                    <i class="fa-solid fa-check mr-1"></i> Check
+                                </button>
+                                <button class="btn font-subheadline text-[11px] px-2.5 py-1.5 bg-ink text-paper font-bold uppercase tracking-wider border border-ink hover:bg-accent hover:text-white transition shadow whitespace-nowrap" id="revealBtn">
+                                    <i class="fa-solid fa-eye mr-1"></i> Reveal
+                                </button>
+                                <button class="btn font-subheadline text-[11px] px-2.5 py-1.5 bg-paper-dark border border-ink font-bold uppercase tracking-wider text-ink hover:bg-ink hover:text-paper transition shadow whitespace-nowrap" id="clearBtn">
+                                    <i class="fa-solid fa-rotate-left mr-1"></i> Clear
+                                </button>
+                            </div>
+                        </div>
+                        <div class="status text-center mt-1.5 font-headline italic text-xs text-stone-900 font-bold min-h-[16px]" id="status"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== RSVP TELEGRAPH SECTION ==================== -->
+        <section id="rsvp" class="scroll-mt-16 border-b-2 border-ink pb-10 mb-10">
+            <div class="gazette-section-card">
+                <div class="text-center mb-5 border-b-2 border-ink pb-3">
+                    <span class="font-subheadline text-xs font-bold text-accent uppercase block mb-1">Official Guest Response</span>
+                    <h2 class="font-headline font-black text-4xl uppercase tracking-tight text-ink">
+                        RSVP Telegraph Card
+                    </h2>
+                    <p class="font-body text-xs text-stone-800 italic mt-1 text-gazette-justify text-center">
+                        Kindly confirm your presence at the engagement ceremony.
+                    </p>
+                </div>
+
+                <iframe name="google-form-target" id="google-form-target" class="hidden"></iframe>
+
+                <form id="rsvp-form" 
+                      action="https://docs.google.com/forms/d/e/1FAIpQLScqw2vkQ2eH9B0SpMnHR1ZBySIEaNJZ9NU4HxbmB7_9dUtOfw/formResponse" 
+                      target="google-form-target" 
+                      method="POST" 
+                      onsubmit="handleRSVP(event)" 
+                      class="space-y-4 font-body text-xs">
+                    
+                    <div>
+                        <label class="block font-bold uppercase text-xs font-subheadline mb-1">Full Name</label>
+                        <input type="text" name="entry.1000001" id="rsvp-name" required placeholder="e.g. Mr. & Mrs. S. Roy" 
+                               class="w-full p-2.5 bg-white/90 border border-ink focus:outline-none focus:ring-1 focus:ring-accent font-body rounded-none">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block font-bold uppercase text-xs font-subheadline mb-1">Attendance Status</label>
+                            <select name="entry.1000002" id="rsvp-status" required class="w-full p-2.5 bg-white/90 border border-ink focus:outline-none focus:ring-1 focus:ring-accent font-body rounded-none">
+                                <option value="Joyfully Accepts">Joyfully Accepts</option>
+                                <option value="Regretfully Declines">Regretfully Declines</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold uppercase text-xs font-subheadline mb-1">Number of Attending Guests</label>
+                            <input type="number" name="entry.1000003" id="rsvp-count" min="1" max="4" value="1" 
+                                   class="w-full p-2.5 bg-white/90 border border-ink focus:outline-none focus:ring-1 focus:ring-accent font-body rounded-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold uppercase text-xs font-subheadline mb-1">Meal Preference</label>
+                        <select name="entry.1000004" id="rsvp-meal" class="w-full p-2.5 bg-white/90 border border-ink focus:outline-none focus:ring-1 focus:ring-accent font-body rounded-none">
+                            <option value="Traditional Non-Vegetarian Feast">Traditional Non-Vegetarian Feast</option>
+                            <option value="Pure Vegetarian Banquet">Pure Vegetarian Banquet</option>
+                            <option value="Special Dietary Requirements">Special Dietary Requirements</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold uppercase text-xs font-subheadline mb-1">Song Request or Personal Wishes</label>
+                        <textarea name="entry.1000005" id="rsvp-note" rows="3" placeholder="Write a song recommendation or blessing for Amritaparna & Subham..." 
+                                  class="w-full p-2.5 bg-white/90 border border-ink focus:outline-none focus:ring-1 focus:ring-accent font-body rounded-none"></textarea>
+                    </div>
+
+                    <button type="submit" 
+                            class="touch-target w-full bg-ink text-paper py-3.5 px-4 font-subheadline uppercase font-bold text-sm tracking-widest hover:bg-accent hover:text-white transition shadow border border-ink">
+                        Transmit RSVP Telegraph <i class="fa-solid fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+
+                <div id="rsvp-confirmation" class="hidden mt-5 p-4 border-2 border-accent bg-amber-100 text-stone-900 text-center font-body">
+                    <p class="font-bold font-headline text-lg text-accent">Telegraph Successfully Transmitted!</p>
+                    <p id="rsvp-confirm-msg" class="text-xs mt-1">Thank you! Your response has been recorded with us</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== FOOTER ==================== -->
+        <footer class="border-t-4 border-ink pt-4 text-center text-xs font-body">
+            <div class="grid grid-cols-3 gap-4 mb-4 text-left border-b border-ink pb-4">
+                <div>
+                    <h5 class="font-subheadline font-bold uppercase border-b border-stone-400 pb-1 mb-1.5 text-[11px]">Publishing Press</h5>
+                    <p class="text-stone-800 leading-relaxed text-xs text-gazette-justify">
+                        Published by The Pal & Samanta Engagement Committee. Handcrafted with love to celebrate Amritaparna & Subham.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-subheadline font-bold uppercase border-b border-stone-400 pb-1 mb-1.5 text-[11px]">Official Invitation</h5>
+                    <p class="text-stone-800 leading-relaxed text-xs text-gazette-justify">
+                        This digital broadside serves as an invitation to all honored friends, relatives, and well-wishers.
+                    </p>
+                </div>
+                <div>
+                    <h5 class="font-subheadline font-bold uppercase border-b border-stone-400 pb-1 mb-1.5 text-[11px]">Ceremony Date</h5>
+                    <p class="text-stone-800 leading-relaxed text-xs text-gazette-justify">
+                        Friday, October 23, 2026 &bull; Subhangan Marriage Hall, Madhyamgram, Kolkata - 700129.
+                    </p>
+                </div>
+            </div>
+
+            <div class="font-gothic text-3xl mb-1 text-stone-900">Day to Remember</div>
+            <p class="font-subheadline uppercase tracking-widest text-[11px] text-stone-700 font-semibold">
+                &copy; 2026 Engagement Gazette &bull; Amritaparna Pal & Subham Samanta
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- ==================== JAVASCRIPT SCRIPTS ==================== -->
+    <script>
+    let isPlaying = false;
+
+    // Cinematic Unfold Action (Triggers background music & dramatic zoom reveal)
+    function flyAway() {
+        const splash = document.getElementById('splash-screen');
+        const wrapper = document.querySelector('.heart-wrapper');
+        const audio = document.getElementById('bg-audio');
+        const icon = document.getElementById('audio-icon');
+        
+        // Start background music seamlessly on button click
+        if (audio) {
+            audio.load();
+            audio.play().then(() => {
+                icon.className = "fa-solid fa-volume-high text-sm";
+                isPlaying = true;
+            }).catch(e => console.log("Audio play failed or blocked by browser policy:", e));
+        }
+
+        // 1. Trigger cinematic scale-zoom & rotation transformation on the unified wrapper
+        if (wrapper) wrapper.classList.add('unfolding');
+        
+        // 2. Fade out overlay wrapper smoothly
+        setTimeout(() => {
+            splash.classList.add('fade-out');
+        }, 400);
+
+        // 3. Remove overlay from DOM entirely after animation concludes
+        setTimeout(() => {
+            splash.style.display = 'none';
+        }, 900); 
+    
+        window.scrollTo(0, 0);
+    }
+
+    // Dynamic Floating Hearts Generator (Full screen coverage for mobile & desktop)
+    function createFloatingHeart() {
+        const container = document.getElementById('floating-hearts-container');
+        if (!container) return;
+        const heart = document.createElement('div');
+        heart.className = 'floating-heart';
+        heart.innerHTML = '<i class="fa-solid fa-heart"></i>';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (Math.random() * 20 + 14) + 'px';
+        const duration = Math.random() * 4 + 5;
+        heart.style.animation = `floatUp ${duration}s linear infinite`;
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        container.appendChild(heart);
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        for(let i=0; i<30; i++) {
+            createFloatingHeart();
+        }
+    });
+
+    // Audio Toggle Logic
+    function toggleAudio() {
+        const audio = document.getElementById('bg-audio');
+        const icon = document.getElementById('audio-icon');
+        if (isPlaying) {
+            audio.pause();
+            icon.className = "fa-solid fa-volume-xmark text-sm";
+            isPlaying = false;
+        } else {
+            audio.play().then(() => {
+                icon.className = "fa-solid fa-volume-high text-sm";
+                isPlaying = true;
+            }).catch(e => console.log("Audio toggle failed", e));
+        }
+    }
+
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+    window.addEventListener('load', () => {
+        if (!window.location.hash) {
+            window.scrollTo(0, 0);
+        }
+    });
+
+    // Countdown Logic
+    const EVENT_TARGET_DATE_STR = "October 23, 2026 18:00:00";
+    const eventDate = new Date(EVENT_TARGET_DATE_STR).getTime();
+
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = eventDate - now;
+
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById('days').innerText = String(days).padStart(2, '0');
+            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+        } else {
+            document.getElementById('days').innerText = '00';
+            document.getElementById('hours').innerText = '00';
+            document.getElementById('minutes').innerText = '00';
+            document.getElementById('seconds').innerText = '00';
+        }
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Crossword Puzzle Interactive Logic
+    const DATA = {
+        "width": 15, "height": 19,
+        "words": [
+            {"num":8,"answer":"BARRACKPORE","clue":"Groom's Place","row":4,"col":9,"dir":"D","len":11},
+            {"num":15,"answer":"AMRITAPARNA","clue":"The bride","row":13,"col":1,"dir":"A","len":11},
+            {"num":10,"answer":"CELEBRATION","clue":"A joyous gathering, in a word","row":5,"col":3,"dir":"A","len":11},
+            {"num":11,"answer":"MADHYAMGRAM","clue":"Bride's Place","row":8,"col":0,"dir":"A","len":11},
+            {"num":9,"answer":"ENGAGEMENT","clue":"The ceremony being celebrated today","row":4,"col":13,"dir":"D","len":10},
+            {"num":4,"answer":"BLESSING","clue":"What elders give the couple","row":0,"col":11,"dir":"D","len":8},
+            {"num":13,"answer":"MARIGOLD","clue":"The classic orange festival flower","row":10,"col":4,"dir":"D","len":8},
+            {"num":7,"answer":"CEREMONY","clue":"A formal ritual observance","row":4,"col":6,"dir":"D","len":8},
+            {"num":14,"answer":"GARLAND","clue":"String of flowers for decoration","row":12,"col":1,"dir":"D","len":7},
+            {"num":12,"answer":"KOLKATA","clue":"The city of Joy","row":9,"col":11,"dir":"D","len":7},
+            {"num":2,"answer":"OCTOBER","clue":"The month of the big day","row":0,"col":4,"dir":"D","len":7},
+            {"num":16,"answer":"PANDIT","clue":"The priest who conducts the rituals","row":13,"col":7,"dir":"D","len":6},
+            {"num":6,"answer":"FRIDAY","clue":"The day of the week it falls on","row":4,"col":1,"dir":"D","len":6},
+            {"num":3,"answer":"SUBHAM","clue":"The groom","row":0,"col":9,"dir":"A","len":6},
+            {"num":18,"answer":"FAMILY","clue":"Both sides coming together","row":16,"col":0,"dir":"A","len":6},
+            {"num":5,"answer":"VENUE","clue":"Marriage Hall, for example","row":2,"col":7,"dir":"A","len":5},
+            {"num":1,"answer":"TOAST","clue":"Raise a glass to ___ the couple","row":0,"col":3,"dir":"A","len":5},
+            {"num":17,"answer":"SAREE","clue":"Traditional drape worn by the female guests","row":15,"col":10,"dir":"A","len":5},
+            {"num":19,"answer":"RING","clue":"Symbol exchanged at an engagement","row":17,"col":6,"dir":"A","len":4}
+        ]
+    };
+
+    const W = DATA.width, H = DATA.height;
+    const solutionGrid = Array.from({length:H}, ()=>Array(W).fill(null));
+    const numberGrid = Array.from({length:H}, ()=>Array(W).fill(null));
+    const wordsAt = Array.from({length:H}, ()=>Array.from({length:W}, ()=>({A:null,D:null})));
+
+    DATA.words.forEach(w=>{
+        for(let i=0;i<w.len;i++){
+            const r = w.row + (w.dir==='D'? i:0);
+            const c = w.col + (w.dir==='A'? i:0);
+            solutionGrid[r][c] = w.answer[i];
+            wordsAt[r][c][w.dir] = w;
+        }
+        if(!numberGrid[w.row][w.col]) numberGrid[w.row][w.col] = w.num;
+    });
+
+    const gridEl = document.getElementById('grid');
+    gridEl.style.gridTemplateColumns = `repeat(${W}, 25px)`;
+    gridEl.style.gridTemplateRows = `repeat(${H}, 25px)`;
+
+    const cellRefs = Array.from({length:H}, ()=>Array(W).fill(null));
+
+    for(let r=0;r<H;r++){
+        for(let c=0;c<W;c++){
+            const div = document.createElement('div');
+            if(solutionGrid[r][c]===null){
+                div.className = 'cw-cell black';
+                gridEl.appendChild(div);
+                continue;
+            }
+            div.className = 'cw-cell';
+            if(numberGrid[r][c]){
+                const num = document.createElement('span');
+                num.className = 'num';
+                num.textContent = numberGrid[r][c];
+                div.appendChild(num);
+            }
+            const input = document.createElement('input');
+            input.maxLength = 1;
+            input.autocomplete = 'off';
+            input.autocapitalize = 'characters';
+            input.dataset.row = r;
+            input.dataset.col = c;
+            div.appendChild(input);
+            gridEl.appendChild(div);
+            cellRefs[r][c] = { cellDiv: div, input };
+        }
+    }
+
+    let currentDir = 'A';
+    let currentWord = null;
+
+    function wordCells(word){
+        const cells = [];
+        for(let i=0;i<word.len;i++){
+            const r = word.row + (word.dir==='D'? i:0);
+            const c = word.col + (word.dir==='A'? i:0);
+            cells.push([r,c]);
+        }
+        return cells;
+    }
+
+    function clearHighlight(){
+        document.querySelectorAll('.cw-cell.active, .cw-cell.in-word').forEach(el=>{
+            el.classList.remove('active','in-word');
+        });
+        document.querySelectorAll('.clue-list li.selected').forEach(el=>el.classList.remove('selected'));
+    }
+
+    function highlightWord(word, activeR, activeC){
+        clearHighlight();
+        wordCells(word).forEach(([r,c])=>{
+            const ref = cellRefs[r][c];
+            if(!ref) return;
+            ref.cellDiv.classList.add('in-word');
+            if(r===activeR && c===activeC) ref.cellDiv.classList.add('active');
+        });
+        const li = document.querySelector(`li[data-num="${word.num}"][data-dir="${word.dir}"]`);
+        if(li) li.classList.add('selected');
+    }
+
+    function selectCell(r, c, preferDir, shouldFocus = true){
+        const avail = wordsAt[r][c];
+        let dir = preferDir;
+        if(!dir || !avail[dir]) dir = avail.A ? 'A' : 'D';
+        const word = avail[dir];
+        if(!word) return;
+        currentDir = dir;
+        currentWord = word;
+        highlightWord(word, r, c);
+        const ref = cellRefs[r][c];
+        if(ref && shouldFocus) {
+            ref.input.focus({ preventScroll: true });
+        }
+    }
+
+    for(let r=0;r<H;r++){
+        for(let c=0;c<W;c++){
+            const ref = cellRefs[r][c];
+            if(!ref) continue;
+            const { input, cellDiv } = ref;
+
+            input.addEventListener('focus', ()=>{
+                const avail = wordsAt[r][c];
+                let dir = currentDir;
+                if(!avail[dir]) dir = avail.A ? 'A' : 'D';
+                currentDir = dir;
+                currentWord = avail[dir];
+                highlightWord(currentWord, r, c);
+            });
+
+            input.addEventListener('click', ()=>{
+                const avail = wordsAt[r][c];
+                if(avail.A && avail.D){
+                    currentDir = currentDir === 'A' ? 'D' : 'A';
+                }
+                selectCell(r, c, currentDir, true);
+            });
+
+            input.addEventListener('input', (e)=>{
+                cellDiv.classList.remove('correct', 'wrong');
+                let val = e.target.value.toUpperCase().replace(/[^A-Z]/g,'');
+                e.target.value = val.slice(-1);
+                moveNext(r, c);
+                checkProgress();
+            });
+
+            input.addEventListener('keydown', (e)=>{
+                if(e.key === 'Backspace' && !e.target.value){
+                    movePrev(r, c);
+                    e.preventDefault();
+                } else if(e.key === 'ArrowRight'){ moveDir(r,c,0,1); e.preventDefault(); }
+                else if(e.key === 'ArrowLeft'){ moveDir(r,c,0,-1); e.preventDefault(); }
+                else if(e.key === 'ArrowDown'){ moveDir(r,c,1,0); e.preventDefault(); }
+                else if(e.key === 'ArrowUp'){ moveDir(r,c,-1,0); e.preventDefault(); }
+            });
+        }
+    }
+
+    function moveDir(r,c,dr,dc){
+        let nr=r+dr, nc=c+dc;
+        while(nr>=0 && nr<H && nc>=0 && nc<W){
+            if(cellRefs[nr][nc]){ selectCell(nr,nc, dr!==0 ? 'D' : 'A', true); return; }
+            nr+=dr; nc+=dc;
+        }
+    }
+
+    function moveNext(r,c){
+        if(!currentWord) return;
+        const cells = wordCells(currentWord);
+        const idx = cells.findIndex(([rr,cc])=>rr===r&&cc===c);
+        if(idx>-1 && idx < cells.length-1){
+            const [nr,nc] = cells[idx+1];
+            selectCell(nr,nc,currentDir, true);
+        }
+    }
+    function movePrev(r,c){
+        if(!currentWord) return;
+        const cells = wordCells(currentWord);
+        const idx = cells.findIndex(([rr,cc])=>rr===r&&cc===c);
+        if(idx>0){
+            const [nr,nc] = cells[idx-1];
+            selectCell(nr,nc,currentDir, true);
+            cellRefs[nr][nc].input.value = '';
+            cellRefs[nr][nc].cellDiv.classList.remove('correct', 'wrong');
+        }
+    }
+
+    function buildClueList(dir, containerId){
+        const list = document.getElementById(containerId);
+        const words = DATA.words.filter(w=>w.dir===dir).sort((a,b)=>a.num-b.num);
+        words.forEach(w=>{
+            const li = document.createElement('li');
+            li.dataset.num = w.num;
+            li.dataset.dir = w.dir;
+            li.innerHTML = `<span class="n">${w.num}.</span> ${w.clue} (${w.len})`;
+            li.addEventListener('click', ()=>{
+                selectCell(w.row, w.col, w.dir, true);
+            });
+            list.appendChild(li);
+        });
+    }
+    buildClueList('A','acrossList');
+    buildClueList('D','downList');
+
+    selectCell(DATA.words[0].row, DATA.words[0].col, DATA.words[0].dir, false);
+
+    const statusEl = document.getElementById('status');
+
+    function markClueDone(word, done){
+        const li = document.querySelector(`li[data-num="${word.num}"][data-dir="${word.dir}"]`);
+        if(li) li.classList.toggle('done', done);
+    }
+
+    function isWordComplete(word){
+        return wordCells(word).every(([r,c])=>{
+            const ref = cellRefs[r][c];
+            return ref && ref.input.value === solutionGrid[r][c];
+        });
+    }
+
+    function checkProgress(){
+        DATA.words.forEach(w=> markClueDone(w, isWordComplete(w)));
+    }
+
+    document.getElementById('checkBtn').addEventListener('click', ()=>{
+        let wrongCount = 0, filledCount = 0;
+        for(let r=0;r<H;r++) for(let c=0;c<W;c++){
+            const ref = cellRefs[r][c];
+            if(!ref) continue;
+            ref.cellDiv.classList.remove('correct','wrong');
+            if(!ref.input.value) continue;
+            filledCount++;
+            if(ref.input.value === solutionGrid[r][c]){
+                ref.cellDiv.classList.add('correct');
+            } else {
+                ref.cellDiv.classList.add('wrong');
+                wrongCount++;
+            }
+        }
+        if(filledCount===0){
+            statusEl.textContent = 'Fill in a few letters first!';
+        } else if(wrongCount===0){
+            statusEl.textContent = 'All filled letters are correct so far!';
+        } else {
+            statusEl.textContent = `${wrongCount} letter${wrongCount>1?'s':''} need another look.`;
+        }
+        checkProgress();
+    });
+
+    document.getElementById('revealBtn').addEventListener('click', ()=>{
+        for(let r=0;r<H;r++) for(let c=0;c<W;c++){
+            const ref = cellRefs[r][c];
+            if(!ref) continue;
+            ref.input.value = solutionGrid[r][c];
+            ref.cellDiv.classList.remove('wrong');
+            ref.cellDiv.classList.add('correct');
+        }
+        statusEl.textContent = 'All answers revealed!';
+        checkProgress();
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', ()=>{
+        for(let r=0;r<H;r++) for(let c=0;c<W;c++){
+            const ref = cellRefs[r][c];
+            if(!ref) continue;
+            ref.input.value = '';
+            ref.cellDiv.classList.remove('correct','wrong');
+        }
+        statusEl.textContent = 'Grid cleared!';
+        DATA.words.forEach(w=> markClueDone(w, false));
+    });
+    
+    // RSVP Form Submission Handler
+    function handleRSVP(e) {
+        if (e && e.preventDefault) {
+            e.preventDefault();
+        }
+
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwZN-pKFBx2qprFLPwVGLeCEoPue96tg3XN5dfjbjTJ5Ct0Bh6kb6kRjwVuPi35QRcA/exec";
+
+        const nameInput = document.getElementById('rsvp-name');
+        const name = nameInput ? nameInput.value.trim() : '';
+        const status = document.getElementById('rsvp-status').value;
+        const count = document.getElementById('rsvp-count').value;
+        const meal = document.getElementById('rsvp-meal').value;
+        const note = document.getElementById('rsvp-note').value;
+
+        if (!name) return;
+
+        const details = new URLSearchParams();
+        details.append('name', name);
+        details.append('status', status);
+        details.append('count', count);
+        details.append('meal', meal);
+        details.append('note', note);
+
+        fetch(WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: details
+        })
+        .then(() => {
+            const confirmation = document.getElementById('rsvp-confirmation');
+            const confirmMsg = document.getElementById('rsvp-confirm-msg');
+            confirmMsg.innerText = `Thank you, ${name}! Your RSVP has been saved to the sheet.`;
+            confirmation.classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('rsvp-form').reset();
+            }, 500);
+        })
+        .catch(err => {
+            console.error('Error submitting RSVP:', err);
+        });
+    }
+    </script>
+</body>
+</html>
